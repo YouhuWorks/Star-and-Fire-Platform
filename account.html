@@ -3,710 +3,417 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=1280, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes" />
-<title>星火平台 · 燎原计划</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+<title>星火平台 · 账号中心</title>
+<link href="https://miaoda.feishu.cn/fonts/css2?family=Cinzel:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.4 6.8L21 9.6l-5.2 4.1L17.6 21 12 17.4 6.4 21l1.8-7.3L3 9.6l6.6-.8z' fill='%23dc2626'/%3E%3C/svg%3E">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap');
-
   *{box-sizing:border-box;margin:0;padding:0}
-
   :root{
-    --bg:#0a0c10;
-    --surface:#12161b;
-    --surface2:#181e26;
-    --border:#262e38;
-    --text:#eef2f6;
-    --text2:#8892a4;
-    --accent:#dc2626;
-    --accent2:#b91c1c;
-    --accent-light:#ef4444;
-    --radius:14px;
-    --shadow:0 8px 40px rgba(0,0,0,.45);
+    --bg:#0a0c10;--surface:#12161b;--surface2:#181e26;--border:#262e38;
+    --text:#eef2f6;--text2:#8892a4;--accent:#dc2626;--accent2:#b91c1c;--accent-light:#ef4444;
+    --success:#22c55e;--radius:14px;--shadow:0 8px 40px rgba(0,0,0,.45);
   }
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.55;min-height:100vh;min-width:1024px}
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 650px 420px at 60% 20%,rgba(220,38,38,.06),transparent),radial-gradient(ellipse 500px 360px at 30% 80%,rgba(185,28,28,.05),transparent)}
+  .wrap{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:36px 24px 50px}
 
-  body{
-    font-family:'Inter',-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    line-height:1.55;
-    min-height:100vh;
-    min-width:1024px;
-  }
-
-  body::before{
-    content:'';
-    position:fixed;inset:0;
-    background:
-      radial-gradient(ellipse 650px 420px at 60% 20%,rgba(220,38,38,.06),transparent),
-      radial-gradient(ellipse 500px 360px at 30% 80%,rgba(185,28,28,.05),transparent);
-    pointer-events:none;
-    z-index:0;
-  }
-
-  .wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:36px 24px 50px}
-
-  /* ========== 导航栏 ========== */
-  .header-nav{
-    position:fixed;top:0;left:0;width:100%;height:64px;
-    background:rgba(10,12,16,.82);
-    backdrop-filter:blur(12px);
-    border-bottom:1px solid rgba(220,38,38,.25);
-    z-index:1000;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 48px;
-    min-width:1024px;
-  }
-
-  .brand-logo{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    text-decoration:none;
-    cursor:pointer;
-  }
-
-  .logo-img{
-    width:36px;height:36px;
-    object-fit:contain;
-    transition:transform .3s ease,filter .3s ease;
-  }
-  .brand-logo:hover .logo-img{
-    transform:scale(1.08) rotate(4deg);
-    filter:drop-shadow(0 0 12px rgba(220,38,38,.75));
-  }
-
-  .logo-text{
-    font-family:'Cinzel','Trajan Pro','Times New Roman',serif;
-    font-size:22px;font-weight:700;letter-spacing:2px;
-    color:#f8f8f8;text-transform:uppercase;
-  }
-  .logo-text span{color:#dc2626;text-shadow:0 0 8px rgba(220,38,38,.4)}
-
+  .header-nav{position:fixed;top:0;left:0;width:100%;height:64px;z-index:1000;background:rgba(10,12,16,.82);backdrop-filter:blur(12px);border-bottom:1px solid rgba(220,38,38,.25);display:flex;align-items:center;justify-content:space-between;padding:0 48px;min-width:1024px}
+  .brand-logo{display:flex;align-items:center;gap:12px;text-decoration:none;cursor:pointer}
+  .logo-mark{width:32px;height:32px;color:var(--accent);transition:transform .3s ease,filter .3s ease}
+  .brand-logo:hover .logo-mark{transform:scale(1.08) rotate(6deg);filter:drop-shadow(0 0 10px rgba(220,38,38,.7))}
+  .logo-text{font-family:'Cinzel','Trajan Pro','Times New Roman',serif;font-size:20px;font-weight:700;letter-spacing:2px;color:#f8f8f8;text-transform:uppercase}
+  .logo-text span{color:var(--accent);text-shadow:0 0 8px rgba(220,38,38,.4)}
   .nav-right{display:flex;align-items:center;gap:10px}
+  .nav-link{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:999px;font-size:13px;font-weight:520;text-decoration:none;transition:.2s;cursor:pointer;border:none;background:var(--surface2);color:var(--text);border:1px solid var(--border)}
+  .nav-link:hover{background:#1e2630;border-color:var(--text2)}
+  .nav-link.active{background:var(--accent);color:#fff;border-color:transparent;box-shadow:0 2px 10px rgba(220,38,38,.3)}
 
-  .top-btn{
-    display:inline-flex;align-items:center;gap:6px;
-    padding:8px 16px;border-radius:999px;font-size:13px;font-weight:520;
-    text-decoration:none;transition:.2s;cursor:pointer;border:none;
-    background:var(--surface2);color:var(--text);border:1px solid var(--border);
-  }
-  .top-btn:hover{background:#1e2630;border-color:var(--text2)}
-  .top-btn.login{
-    background:var(--accent);color:#fff;border:none;
-    box-shadow:0 2px 10px rgba(220,38,38,.3);
-  }
-  .top-btn.login:hover{background:var(--accent-light)}
+  .hero{background:var(--surface);border:1px solid var(--border);border-radius:calc(var(--radius)+4px);padding:38px 32px 30px;box-shadow:var(--shadow);margin:16px 0 24px}
+  .hero h2{font-size:26px;font-weight:660;letter-spacing:-.4px}
+  .hero p{color:var(--text2);font-size:15px;margin-top:10px;max-width:620px;line-height:1.65}
 
-  /* 搜索弹窗 */
-  .search-overlay{
-    display:none;
-    position:fixed;inset:0;z-index:999;
-    background:rgba(0,0,0,.6);
-    backdrop-filter:blur(4px);
-    align-items:flex-start;justify-content:center;
-    padding-top:120px;
-  }
-  .search-overlay.active{display:flex}
-  .search-panel{
-    background:var(--surface);border:1px solid var(--border);
-    border-radius:var(--radius);padding:24px;
-    width:90%;max-width:560px;box-shadow:var(--shadow);
-  }
-  .search-input-wrap{
-    display:flex;align-items:center;gap:10px;
-    background:var(--surface2);border:1px solid var(--border);
-    border-radius:999px;padding:4px 4px 4px 18px;
-  }
-  .search-input-wrap input{
-    flex:1;background:transparent;border:none;outline:none;
-    color:var(--text);font-size:15px;font-family:inherit;
-  }
-  .search-input-wrap input::placeholder{color:var(--text2)}
-  .search-clear{
-    background:transparent;border:none;color:var(--text2);
-    cursor:pointer;padding:8px 12px;font-size:14px;
-  }
-  .search-clear:hover{color:var(--text)}
-  .search-results{
-    margin-top:16px;max-height:320px;overflow-y:auto;
-    display:flex;flex-direction:column;gap:8px;
-  }
-  .search-result-item{
-    padding:12px 14px;border-radius:8px;
-    background:var(--surface2);border:1px solid transparent;
-    text-decoration:none;color:var(--text);transition:.1s;
-  }
-  .search-result-item:hover{border-color:var(--accent)}
-  .search-result-item .sri-title{font-size:14px;font-weight:540}
-  .search-result-item .sri-desc{font-size:12px;color:var(--text2);margin-top:2px}
-  .search-empty{color:var(--text2);font-size:14px;text-align:center;padding:20px}
-
-  /* ---------- 英雄区 ---------- */
-  .hero{
-    background:var(--surface);border:1px solid var(--border);
-    border-radius:calc(var(--radius)+4px);padding:46px 32px 40px;
-    backdrop-filter:blur(4px);box-shadow:var(--shadow);
-    margin-bottom:32px;margin-top:16px;
-  }
-  .hero h2{font-size:28px;font-weight:660;letter-spacing:-.4px}
-  .hero p{color:var(--text2);font-size:15px;margin-top:10px;max-width:620px;line-height:1.6}
-  .hero-actions{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
-  .btn{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:10px 22px;border-radius:999px;font-size:14px;font-weight:520;
-    text-decoration:none;transition:.2s;cursor:pointer;border:none;
-  }
-  .btn-primary{
-    background:var(--accent);color:#fff;
-    box-shadow:0 2px 12px rgba(220,38,38,.35);
-  }
-  .btn-primary:hover{background:var(--accent-light);transform:scale(1.02)}
-  .btn-secondary{
-    background:var(--surface2);color:var(--text);border:1px solid var(--border);
-  }
-  .btn-secondary:hover{background:#1e2630;border-color:var(--text2)}
-
-  /* ========== 宣传图轮播 ========== */
-  .carousel-section{margin-bottom:32px;}
-  .carousel-container{
-    position:relative;overflow:hidden;
-    border-radius:var(--radius);border:1px solid var(--border);
-    background:var(--surface);box-shadow:var(--shadow);
-    user-select:none;-webkit-user-select:none;
-  }
-  .carousel-track{
-    display:flex;gap:0;
-    transition:transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    will-change:transform;cursor:grab;
-  }
-  .carousel-track.dragging{transition:none !important;cursor:grabbing;}
-  .carousel-slide{
-    min-width:100%;
-    flex-shrink:0;
-    position:relative;
-    aspect-ratio:2/1;
-    overflow:hidden;
-  }
-  .carousel-slide img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-    pointer-events:none;
-  }
-  .carousel-slide .slide-overlay{
-    position:absolute;bottom:0;left:0;right:0;padding:24px 28px;
-    background:linear-gradient(transparent,rgba(0,0,0,.78));
-  }
-  .carousel-slide .slide-overlay h3{font-size:18px;font-weight:620;margin-bottom:4px;}
-  .carousel-slide .slide-overlay p{font-size:13px;color:rgba(255,255,255,.72);}
-  .carousel-indicators{display:flex;justify-content:center;gap:8px;margin-top:12px;}
-  .carousel-indicators .dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:.2s;cursor:pointer;}
-  .carousel-indicators .dot.active{background:var(--accent);width:24px;border-radius:4px;}
-
-  /* ---------- 区块标题 ---------- */
-  .section-title{
-    font-size:15px;font-weight:600;color:var(--text2);text-transform:uppercase;
-    letter-spacing:.6px;margin:36px 0 18px;display:flex;align-items:center;gap:10px;
-  }
+  .section-title{font-size:15px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;margin:30px 0 16px;display:flex;align-items:center;gap:10px}
   .section-title::after{content:'';flex:1;height:1px;background:var(--border)}
 
-  /* ========== MOD 作品网格（带宣传图） ========== */
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
+  .auth-wrap{max-width:460px;margin:0 auto}
+  .panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px}
+  .panel h3{font-size:20px;font-weight:660;text-align:center}
+  .panel .sub{color:var(--text2);font-size:13px;text-align:center;margin:6px 0 22px}
+  .tabs{display:flex;gap:8px;margin-bottom:20px;background:var(--surface2);border-radius:999px;padding:4px}
+  .tab{flex:1;padding:9px 0;border:none;background:transparent;color:var(--text2);font-size:14px;font-weight:560;cursor:pointer;border-radius:999px;transition:.2s}
+  .tab.active{background:var(--accent);color:#fff}
+  .tab.active:hover{background:var(--accent-light)}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:13px;color:var(--text2);margin-bottom:7px}
+  .field input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:.2s}
+  .field input:focus{border-color:var(--accent)}
+  .form-msg{font-size:13px;min-height:20px;margin-bottom:8px;text-align:center}
+  .form-msg.err{color:var(--accent-light)}
+  .form-msg.ok{color:var(--success)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 22px;border-radius:999px;font-size:14px;font-weight:520;text-decoration:none;transition:.2s;cursor:pointer;border:none;font-family:inherit}
+  .btn-primary{background:var(--accent);color:#fff;box-shadow:0 2px 12px rgba(220,38,38,.35)}
+  .btn-primary:hover{background:var(--accent-light)}
+  .btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
+  .btn-secondary:hover{background:#1e2630;border-color:var(--text2)}
+  .btn-danger{background:rgba(220,38,38,.12);color:var(--accent-light);border:1px solid rgba(220,38,38,.4)}
+  .btn-danger:hover{background:rgba(220,38,38,.22)}
+  .btn-block{width:100%;padding:12px 0}
 
-  .mod-card{
-    background:var(--surface);border:1px solid var(--border);
-    border-radius:var(--radius);overflow:hidden;
-    transition:.25s;cursor:pointer;text-decoration:none;color:inherit;
-    position:relative;
-  }
-  .mod-card:hover{
-    transform:translateY(-4px);
-    border-color:var(--accent);
-    box-shadow:0 16px 52px rgba(0,0,0,.55);
-  }
+  .acct-layout{display:grid;grid-template-columns:280px 1fr;gap:20px;align-items:start}
+  .side{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px}
+  .profile-mini{display:flex;align-items:center;gap:14px;padding-bottom:18px;border-bottom:1px solid var(--border);margin-bottom:16px}
+  .avatar{width:54px;height:54px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:23px;font-weight:700;color:#fff}
+  .profile-mini .p-name{font-size:16px;font-weight:640}
+  .profile-mini .p-role{font-size:12px;color:var(--text2);margin-top:2px}
+  .menu{display:flex;flex-direction:column;gap:4px}
+  .menu-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:10px;cursor:pointer;font-size:14px;font-weight:530;color:var(--text2);transition:.15s;border:1px solid transparent;background:transparent}
+  .menu-item svg{flex-shrink:0}
+  .menu-item:hover{background:var(--surface2);color:var(--text)}
+  .menu-item.active{background:var(--surface2);color:var(--text);border-color:var(--border)}
+  .menu-item.active svg{color:var(--accent)}
+  .side .logout{margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
 
-  /* 宣传图区域 */
-  .mod-banner{
-    width:100%;height:180px;overflow:hidden;position:relative;
-  }
-  .mod-banner img{
-    width:100%;height:100%;object-fit:cover;display:block;
-    transition:transform .4s ease;
-  }
-  .mod-card:hover .mod-banner img{transform:scale(1.04);}
+  .content{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px 26px 28px}
+  .content h3{font-size:18px;font-weight:640;margin-bottom:4px}
+  .content .sub{color:var(--text2);font-size:13px;margin-bottom:20px}
 
-  /* 渐变遮罩 */
-  .mod-banner::after{
-    content:'';
-    position:absolute;bottom:0;left:0;right:0;height:60%;
-    background:linear-gradient(to bottom,transparent 0%,var(--surface) 100%);
-    pointer-events:none;
-  }
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+  .stat{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:18px;text-align:center}
+  .stat .n{font-size:26px;font-weight:680}
+  .stat .l{font-size:12px;color:var(--text2);margin-top:4px}
+  .recent-title{font-size:14px;font-weight:600;margin-bottom:12px}
+  .recent-list{display:flex;flex-direction:column;gap:10px}
+  .recent-item{display:flex;align-items:center;gap:12px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+  .recent-item .ri-name{font-size:14px;font-weight:570;flex:1}
+  .recent-item .ri-time{font-size:12px;color:var(--text2)}
+  .state-pill{font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;flex-shrink:0}
+  .state-done{color:var(--success);background:rgba(34,197,94,.12)}
+  .state-wait{color:var(--text2);background:var(--surface)}
+  .state-track{color:var(--accent-light);background:rgba(220,38,38,.12)}
 
-  .mod-content{padding:20px 24px 24px;}
-  .mod-content h3{font-size:17px;font-weight:620;margin-bottom:6px}
-  .mod-content p{color:var(--text2);font-size:14px;line-height:1.55}
-  .mod-meta{
-    display:flex;gap:16px;margin-top:12px;font-size:13px;color:var(--text2);flex-wrap:wrap;
-  }
-  .mod-meta span{display:flex;align-items:center;gap:4px}
-  .mod-url{
-    display:block;margin-top:10px;font-size:12px;color:var(--accent);word-break:break-all;opacity:.7;
-  }
+  .set-item{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--border)}
+  .set-item:last-child{border-bottom:none}
+  .set-item .si-label{font-size:14px;font-weight:560}
+  .set-item .si-desc{font-size:12px;color:var(--text2);margin-top:2px}
+  .switch{position:relative;width:44px;height:24px;border-radius:999px;background:var(--surface2);border:1px solid var(--border);cursor:pointer;transition:.2s;flex-shrink:0}
+  .switch::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:var(--text2);transition:.2s}
+  .switch.on{background:var(--accent);border-color:var(--accent)}
+  .switch.on::after{left:22px;background:#fff}
 
-  /* ---------- 普通卡片 ---------- */
-  .card{
-    background:var(--surface);border:1px solid var(--border);
-    border-radius:var(--radius);padding:20px;
-    transition:.2s;cursor:default;
-  }
-  .card h3{font-size:15px;font-weight:590;margin-bottom:4px}
-  .card p{color:var(--text2);font-size:13px;line-height:1.5}
-
-  /* ========== 平台详情板块 ========== */
-  .about-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
-
-  .about-card{
-    background:var(--surface);border:1px solid var(--border);
-    border-radius:var(--radius);padding:28px 24px;
-    transition:.2s;position:relative;overflow:hidden;
-  }
-  .about-card::before{
-    content:'';position:absolute;top:0;left:0;right:0;height:3px;
-    background:var(--accent);opacity:0.6;
-  }
-  .about-card:hover{
-    border-color:var(--accent);transform:translateY(-2px);
-    box-shadow:0 8px 32px rgba(0,0,0,.4);
-  }
-  .about-card .ac-icon{font-size:30px;margin-bottom:12px;display:block}
-  .about-card h3{font-size:17px;font-weight:620;margin-bottom:8px}
-  .about-card p{color:var(--text2);font-size:14px;line-height:1.65}
-
-  /* ========== 联系我们板块 ========== */
-  .contact-wrapper{
-    background:var(--surface);border:1px solid var(--border);
-    border-radius:var(--radius);overflow:hidden;
-    transition:.2s;
-  }
-  .contact-wrapper:hover{
-    border-color:var(--accent);
-    box-shadow:0 8px 32px rgba(0,0,0,.4);
-  }
-  .contact-header{
-    padding:24px 28px 0 28px;
-  }
-  .contact-header h3{
-    font-size:17px;font-weight:620;margin-bottom:6px;
-    display:flex;align-items:center;gap:8px;
-  }
-  .contact-header p{
-    color:var(--text2);font-size:14px;line-height:1.6;
-  }
-  .contact-body{
-    display:flex;gap:0;padding:20px 28px 28px 28px;
-  }
-  .contact-item{
-    flex:1;padding:0 16px;
-  }
-  .contact-item:first-child{
-    border-right:1px solid var(--border);
-    padding-left:0;
-  }
-  .contact-item:last-child{
-    padding-right:0;
-  }
-  .contact-item .ci-icon{font-size:24px;margin-bottom:8px;display:block}
-  .contact-item h4{font-size:14px;font-weight:580;margin-bottom:6px}
-  .contact-item p{color:var(--text2);font-size:13px;line-height:1.5;margin-bottom:10px}
-  .contact-info-box{
-    display:block;padding:8px 14px;
-    background:var(--surface2);border-radius:8px;
-    font-size:13px;color:var(--accent);font-weight:520;
-    word-break:break-all;
-  }
-
-  /* ---------- 底部 ---------- */
-  footer{
-    margin-top:56px;padding-top:20px;border-top:1px solid var(--border);
-    text-align:center;color:var(--text2);font-size:13px;
-    display:flex;justify-content:center;gap:20px;flex-wrap:wrap;
-  }
+  footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);text-align:center;color:var(--text2);font-size:13px;display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
   footer a{color:var(--text2);text-decoration:none}
   footer a:hover{color:var(--accent)}
 
-  @media(max-width:1023px){
-    body{min-width:1024px}
-    .header-nav{min-width:1024px;padding:0 48px}
-  }
+  .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);z-index:2000;background:var(--surface);border:1px solid var(--accent);color:var(--text);padding:12px 22px;border-radius:10px;font-size:14px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.3s}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  @media(max-width:1023px){body{min-width:1024px}.header-nav{min-width:1024px;padding:0 48px}.acct-layout{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<!-- 搜索弹窗 -->
-<div class="search-overlay" id="searchOverlay">
-  <div class="search-panel">
-    <div class="search-input-wrap">
-      <input type="text" id="searchInput" placeholder="搜索 MOD、动态、平台详情…" autofocus />
-      <button class="search-clear" onclick="closeSearch()">✕</button>
-    </div>
-    <div class="search-results" id="searchResults">
-      <div class="search-empty">输入关键词开始搜索</div>
-    </div>
-  </div>
-</div>
+<div class="toast" id="toast"></div>
 
-<!-- 固定导航栏 -->
 <nav class="header-nav">
-  <a href="#" class="brand-logo">
-    <img src="XHlogo.png" alt="星火平台" class="logo-img" />
+  <a href="#" class="brand-logo" id="homeLogo">
+    <svg class="logo-mark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 6.8L21 9.6l-5.2 4.1L17.6 21 12 17.4 6.4 21l1.8-7.3L3 9.6l6.6-.8z"/></svg>
     <div class="logo-text">星火<span>平台</span></div>
   </a>
   <div class="nav-right">
-    <button class="top-btn" onclick="openSearch()">🔍搜索</button>
-    <a href="#about" class="top-btn">平台详情</a>
-    <a href="#contact" class="top-btn">联系我们</a>
-    <a href="https://youhuworks.github.io/Star-and-Fire-Platform/account.html" class="top-btn login"> 🛅我的账户</a>
+    <a href="#" class="nav-link active" id="navAccount">账号中心</a>
   </div>
 </nav>
 
-<div class="wrap" style="padding-top:80px;">
+<div class="wrap" style="padding-top:84px;">
 
-  <!-- 「英雄」区 -->
   <div class="hero">
-    <h2>创造属于你的「新纪元」</h2>
-    <p>一个不断生长的平台。这里是创作者与玩家的共同家园，每一颗<span style="color: #d32f2f;">星火</span>都将点亮全新的历史可能。</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="#mods">浏览 MOD 列表 ↓</a>
-      <a class="btn btn-secondary" href="#about">了解平台 ↓</a>
-    </div>
+    <h2>账号中心</h2>
+    <p>管理你的星火账号：查看个人资料、追踪下载记录与关注的 MOD，配置账号与通知偏好。登录后解锁完整功能。</p>
   </div>
 
-  <!-- 宣传图轮播 -->
-  <div class="carousel-section">
-    <div class="carousel-container" id="carouselContainer">
-      <div class="carousel-track" id="carouselTrack">
-        <div class="carousel-slide">
-          <img src="banner2026092701.png" alt="新轴心 V1.0 发布" />
-          <div class="slide-overlay">
-            <h3>新轴心 V1.0「凯撒归来」</h3>
-            <p>意大利凯撒归来线 · 苏联拓展 · 1200+ 事件</p>
+  <!-- ===== 未登录：登录 / 注册 ===== -->
+  <section id="authSection">
+    <div class="section-title">登录星火平台</div>
+    <div class="auth-wrap">
+      <div class="panel">
+        <h3 id="authTitle">登录星火平台</h3>
+        <div class="sub" id="authSub">登录后可下载作品并查看下载记录</div>
+        <div class="tabs">
+          <button class="tab active" data-tab="login" onclick="switchAuthTab('login')">登录</button>
+          <button class="tab" data-tab="register" onclick="switchAuthTab('register')">注册</button>
+        </div>
+        <form onsubmit="return submitAuth(event)">
+          <div class="field" id="nameField" style="display:none">
+            <label for="userName">显示名称</label>
+            <input id="userName" type="text" placeholder="你的显示名称" autocomplete="nickname" />
+          </div>
+          <div class="field">
+            <label for="userEmail">邮箱</label>
+            <input id="userEmail" type="email" placeholder="you@example.com" autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="userPass">密码</label>
+            <input id="userPass" type="password" placeholder="至少 6 位" autocomplete="current-password" />
+          </div>
+          <div class="form-msg" id="authMsg"></div>
+          <button type="submit" class="btn btn-primary btn-block" id="authSubmit">登录</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 登录后：账号中心主界面 ===== -->
+  <section id="dashSection" style="display:none">
+    <div class="acct-layout">
+      <aside class="side">
+        <div class="profile-mini">
+          <div class="avatar" id="miniAvatar">游</div>
+          <div>
+            <div class="p-name" id="miniName">—</div>
+            <div class="p-role" id="miniEmail">—</div>
           </div>
         </div>
-        <div class="carousel-slide">
-          <img src="banner2026092702.png" alt="革命往事" />
-          <div class="slide-overlay">
-            <h3>革命往事 · 开发中</h3>
-            <p>20世纪的中国，命运由你改写</p>
+        <div class="menu">
+          <div class="menu-item active" data-view="overview" onclick="switchView('overview')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            概览
+          </div>
+          <div class="menu-item" data-view="downloads" onclick="switchView('downloads')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            我的下载
+          </div>
+          <div class="menu-item" data-view="following" onclick="switchView('following')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            我的关注
+          </div>
+          <div class="menu-item" data-view="settings" onclick="switchView('settings')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            账号设置
           </div>
         </div>
-        <div class="carousel-slide">
-          <img src="banner2026092703.png" alt="星火平台" />
-          <div class="slide-overlay">
-            <h3>星火平台正式上线</h3>
-            <p>创作者与玩家的共同家园，更多 MOD 即将到来</p>
+        <div class="logout">
+          <button class="btn btn-danger btn-block" onclick="logout()">退出登录</button>
+        </div>
+      </aside>
+
+      <div class="content">
+        <div class="content-view" id="view-overview">
+          <h3>欢迎回来</h3>
+          <div class="sub" id="overviewGreet">—</div>
+          <div class="stat-row">
+            <div class="stat"><div class="n" id="statDownloads">0</div><div class="l">已下载作品</div></div>
+            <div class="stat"><div class="n" id="statUpdates">0</div><div class="l">可用更新</div></div>
+            <div class="stat"><div class="n" id="statFollowing">0</div><div class="l">关注作品</div></div>
+          </div>
+          <div class="recent-title">最近动态</div>
+          <div class="recent-list" id="recentList"></div>
+        </div>
+
+        <div class="content-view" id="view-downloads" style="display:none">
+          <h3>我的下载</h3>
+          <div class="sub">你已下载或关注的 MOD 作品</div>
+          <div class="recent-list" id="dlList">
+            <div class="recent-item"><div class="ri-name">新轴心 MOD</div><div class="ri-time">V1.1</div><div class="state-pill state-wait">未下载</div></div>
+            <div class="recent-item"><div class="ri-name">革命往事</div><div class="ri-time">开发中</div><div class="state-pill state-track">已关注</div></div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="carousel-indicators" id="carouselIndicators">
-      <span class="dot active" data-index="0"></span>
-      <span class="dot" data-index="1"></span>
-      <span class="dot" data-index="2"></span>
-    </div>
-  </div>
 
-  <!-- MOD 作品区（带宣传图） -->
-  <div class="section-title" id="mods">MOD 作品</div>
-  <div class="grid">
-
-    <a class="mod-card" href="https://youhuworks.github.io" target="_blank">
-      <div class="mod-banner">
-        <img src="mod-revolution.png" alt="革命往事" />
-      </div>
-      <div class="mod-content">
-        <h3>革命往事</h3>
-        <p>20世纪的中国——风雨飘摇、内忧外患，民族存亡危在旦夕，你将带领中国做出怎样的<span style="color: #d32f2f;">抉择</span></p>
-        <div class="mod-meta">
-          <span>⚠开发中</span>
-          <span>🏷 历史 · 国策 · 抗战</span>
+        <div class="content-view" id="view-following" style="display:none">
+          <h3>我的关注</h3>
+          <div class="sub">关注的作品将收到更新提醒</div>
+          <div class="recent-list" id="followList">
+            <div class="recent-item"><div class="ri-name">革命往事</div><div class="ri-time">开发中 · 制作中</div><button class="btn btn-secondary" style="padding:6px 14px;font-size:13px" onclick="unfollow(this)">取消关注</button></div>
+            <div class="recent-item"><div class="ri-name">新轴心 MOD</div><div class="ri-time">V1.1 · 已发布</div><button class="btn btn-secondary" style="padding:6px 14px;font-size:13px" onclick="unfollow(this)">取消关注</button></div>
+          </div>
         </div>
-        <span class="mod-url">youhuworks.github.io</span>
-      </div>
-    </a>
 
-    <a class="mod-card" href="https://youhuworks.github.io/mod-New-axis/" target="_blank">
-      <div class="mod-banner">
-        <img src="mod-newaxis.png" alt="新轴心 MOD" />
-      </div>
-      <div class="mod-content">
-        <h3>新轴心 MOD</h3>
-        <p>从柏林到罗马，从凡尔赛的屈辱到轴心国的<span style="color: #d32f2f;">崛起</span>。1600+ 事件，意大利凯撒归来线，V1.1 已发布。</p>
-        <div class="mod-meta">
-          <span> V1.1 已发布</span>
-          <span>🏷 轴心 · 架空史 · 1600+ 事件</span>
-        </div>
-        <span class="mod-url">youhuworks.github.io/mod-New-axis/</span>
-      </div>
-    </a>
-
-    <div class="mod-card" style="cursor:default; opacity:0.5;">
-      <div class="mod-banner" style="background:var(--surface2); display:flex; align-items:center; justify-content:center;">
-        <span style="font-size:40px; opacity:0.4;">➕</span>
-      </div>
-      <div class="mod-content">
-        <h3>更多 MOD 即将到来</h3>
-        <p>新世界正在酝酿中……</p>
-        <div class="mod-meta">
-          <span>敬请期待</span>
+        <div class="content-view" id="view-settings" style="display:none">
+          <h3>账号设置</h3>
+          <div class="sub">管理个人资料与偏好</div>
+          <div style="font-size:14px;font-weight:600;margin:18px 0 6px">个人资料</div>
+          <div class="field"><label for="editName">显示名称</label><input id="editName" type="text" placeholder="你的显示名称" /></div>
+          <div style="display:flex;gap:10px;margin:4px 0 10px"><button class="btn btn-primary" onclick="saveName()">保存名称</button></div>
+          <div style="font-size:14px;font-weight:600;margin:22px 0 6px">通知偏好</div>
+          <div class="set-item"><div><div class="si-label">更新提醒</div><div class="si-desc">关注的 MOD 发布新版本时通知我</div></div><div class="switch on" data-sw="update" onclick="toggleSwitch(this)"></div></div>
+          <div class="set-item"><div><div class="si-label">下载完成提示</div><div class="si-desc">作品下载完成后弹出提示</div></div><div class="switch on" data-sw="dl" onclick="toggleSwitch(this)"></div></div>
         </div>
       </div>
     </div>
+  </section>
 
-  </div>
-
-  <!-- 近期动态 -->
-  <div class="section-title">近期动态</div>
-  <div class="grid">
-    <div class="card">
-      <h3>新轴心 V1.1「冬季战争」发布</h3>
-      <p>苏联拓展 · 芬兰(北欧帝国)拓展 · 事件库扩展至 1600+</p>
-    </div>
-    <div class="card">
-      <h3>革命往事 开发中</h3>
-      <p>东方战线剧情推进，全新国策树与事件链制作中</p>
-    </div>
-    <div class="card">
-      <h3>星火平台正式上线</h3>
-      <p>创作者与玩家社区启航</p>
-    </div>
-  </div>
-
-  <!-- ====== 平台详情板块 ====== -->
-  <div class="section-title" id="about">关于星火平台</div>
-  <div class="about-grid">
-
-    <div class="about-card">
-      <span class="ac-icon">🔥</span>
-      <h3>我们的使命</h3>
-      <p>星火平台致力于 AOH2 社区的优质 MOD 作品，为每一位无名创作者提供舞台，为每一位玩家提供便利</p>
-    </div>
-
-    <div class="about-card">
-      <span class="ac-icon">🌐</span>
-      <h3>聚集地</h3>
-      <p>平台是所有已入驻 MOD 的统一入口。无论是现有 MOD，还是未来的更多作品，您都可以一站直达</p>
-    </div>
-
-    <div class="about-card">
-      <span class="ac-icon">🤝</span>
-      <h3>平台社区</h3>
-      <p>我们正在计划建设社区生态，衷心恳求更多热爱者能够为平台发展规划出谋划策，<span style="color: #d32f2f;">平台因你我而生长</span></p>
-    </div>
-
-    <div class="about-card">
-      <span class="ac-icon">📈</span>
-      <h3>持续优化</h3>
-      <p>更多功能正在规划与开发中。星火平台将不断迭代，成为 AOH2 模组生态的核心枢纽</p>
-    </div>
-
-  </div>
-
-  <!-- ====== 联系我们板块 ====== -->
-  <div class="section-title" id="contact">联系我们</div>
-  <div class="contact-wrapper">
-    <div class="contact-header">
-      <h3>📬 与我们取得联系</h3>
-      <p>无论您是玩家还是创作者，都欢迎通过以下方式找到我们</p>
-    </div>
-    <div class="contact-body">
-      <div class="contact-item">
-        <span class="ci-icon">✉</span>
-        <h4>反馈与建议 / 申请入驻</h4>
-        <p>如有任何问题、建议或入驻意向，请发送邮件至下方邮箱</p>
-        <span class="contact-info-box">（待填写邮箱地址）</span>
-      </div>
-      <div class="contact-item">
-        <span class="ci-icon">💬</span>
-        <h4>玩家交流群</h4>
-        <p>加入玩家社群，与其他热爱者交流心得、分享战报、获取最新动态</p>
-        <span class="contact-info-box">（待填写QQ群号）</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- 底部 -->
   <footer>
     <span>© 2026 星火平台</span>
-    <a href="https://youhuworks.github.io" target="_blank">革命往事</a>
-    <a href="https://youhuworks.github.io/mod-New-axis/" target="_blank">新轴心 MOD</a>
-    <a href="#">回到顶部 ↑</a>
+    <a href="#" id="footHome">返回首页</a>
+    <a href="#" id="footAccount">账号中心</a>
   </footer>
 
 </div>
 
+<!-- Supabase JS SDK (jsDelivr CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// ===== 搜索功能 =====
-const searchData = [
-  { title:'革命往事', desc:'1936 年中国抉择 · 历史 · 国策 · 抗战', url:'https://youhuworks.github.io' },
-  { title:'新轴心 MOD', desc:'轴心国崛起 · 架空史 · 1200+ 事件 · V1.0 已发布', url:'https://youhuworks.github.io/mod-New-axis/' },
-  { title:'新轴心 V1.0「凯撒归来」发布', desc:'意大利凯撒归来线 · 苏联拓展 · 事件库扩展至 1200+' },
-  { title:'革命往事 开发中', desc:'东方战线剧情推进，全新国策树与事件链制作中' },
-  { title:'星火平台正式上线', desc:'双 MOD 统一入口，创作者与玩家社区启航' },
-  { title:'星火平台 · 我们的使命', desc:'汇聚优质 MOD，让每一颗星火被看见' },
-  { title:'星火平台 · MOD 集结地', desc:'所有入驻 MOD 的统一入口，一站直达' },
-  { title:'星火平台 · 创作者与玩家社区', desc:'收藏、讨论、反馈、数据统计，完整生态' },
-  { title:'星火平台 · 持续进化', desc:'账号系统、下载中心、通知推送，持续迭代' },
-];
+// ===== Supabase 配置 =====
+var SUPABASE_URL = 'https://bvffxdhqkxpiewbourqv.supabase.co';
+var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2ZmZ4ZGhxa3hwaWV3Ym91cnF2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3NzU1MTksImV4cCI6MjEwNjM1MTUxOX0.n_-CQZyuhsxC8sgwtJOrZ06BZ47TrnqSuIIoCplsqQY';
+var supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-function openSearch(){
-  document.getElementById('searchOverlay').classList.add('active');
-  document.getElementById('searchInput').value = '';
-  document.getElementById('searchResults').innerHTML = '<div class="search-empty">输入关键词开始搜索</div>';
-  setTimeout(()=>document.getElementById('searchInput').focus(),100);
+var currentUser = null;
+
+// ===== 提示 =====
+var toastTimer = null;
+function toast(msg){
+  var el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 2400);
 }
 
-function closeSearch(){
-  document.getElementById('searchOverlay').classList.remove('active');
+// ===== 导航 =====
+document.getElementById('homeLogo').addEventListener('click', function(e){ e.preventDefault(); toast('返回星火平台首页'); });
+document.getElementById('navAccount').addEventListener('click', function(e){ e.preventDefault(); toast('你已在账号中心'); });
+document.getElementById('footHome').addEventListener('click', function(e){ e.preventDefault(); toast('返回星火平台首页'); });
+document.getElementById('footAccount').addEventListener('click', function(e){ e.preventDefault(); toast('你已在账号中心'); });
+
+// ===== 登录 / 注册切换 =====
+var authMode = 'login';
+function switchAuthTab(mode){
+  authMode = mode;
+  document.querySelectorAll('#authSection .tab').forEach(function(t){
+    t.classList.toggle('active', t.getAttribute('data-tab') === mode);
+  });
+  document.getElementById('nameField').style.display = mode === 'register' ? 'block' : 'none';
+  document.getElementById('authTitle').textContent = mode === 'login' ? '登录星火平台' : '注册星火平台';
+  document.getElementById('authSub').textContent = mode === 'login' ? '登录后可下载作品并查看下载记录' : '创建账号，开启你的星火之旅';
+  document.getElementById('authSubmit').textContent = mode === 'login' ? '登录' : '注册';
+  document.getElementById('authMsg').textContent = '';
 }
 
-document.getElementById('searchOverlay').addEventListener('click',function(e){
-  if(e.target === this) closeSearch();
-});
+// ===== 提交登录 / 注册（Supabase 真登录） =====
+async function submitAuth(e){
+  e.preventDefault();
+  var email = document.getElementById('userEmail').value.trim();
+  var pass = document.getElementById('userPass').value;
+  var name = document.getElementById('userName').value.trim();
+  var msg = document.getElementById('authMsg');
+  msg.className = 'form-msg';
+  if(!email || !email.includes('@')){ msg.textContent = '请输入有效的邮箱'; msg.classList.add('err'); return false; }
+  if(!pass || pass.length < 6){ msg.textContent = '密码至少 6 位'; msg.classList.add('err'); return false; }
+  if(authMode === 'register' && !name){ msg.textContent = '请设置显示名称'; msg.classList.add('err'); return false; }
 
-document.addEventListener('keydown',function(e){
-  if(e.key === 'Escape') closeSearch();
-});
+  msg.textContent = '请稍候…'; msg.className = 'form-msg';
+  var btn = document.getElementById('authSubmit');
+  btn.disabled = true; btn.textContent = authMode === 'login' ? '登录中…' : '注册中…';
 
-document.getElementById('searchInput').addEventListener('input',function(){
-  const q = this.value.trim().toLowerCase();
-  const container = document.getElementById('searchResults');
-  if(!q){ container.innerHTML = '<div class="search-empty">输入关键词开始搜索</div>'; return; }
-  const results = searchData.filter(item =>
-    item.title.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q)
-  );
-  if(results.length === 0){ container.innerHTML = '<div class="search-empty">未找到相关内容</div>'; return; }
-  container.innerHTML = results.map(item => {
-    const isLink = item.url ? `href="${item.url}" target="_blank"` : '';
-    const tag = isLink ? 'a' : 'div';
-    return `<${tag} class="search-result-item" ${isLink}>
-      <div class="sri-title">${highlight(item.title,q)}</div>
-      <div class="sri-desc">${highlight(item.desc,q)}</div>
-    </${tag}>`;
-  }).join('');
-});
-
-function highlight(text,keyword){
-  const re = new RegExp(`(${keyword.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi');
-  return text.replace(re,'<mark style="background:rgba(220,38,38,.25);color:inherit;border-radius:2px;padding:0 2px">$1</mark>');
-}
-
-// ===== 轮播功能（重构版：精确像素控制，杜绝残留错位） =====
-(function(){
-  const track = document.getElementById('carouselTrack');
-  const slides = track.querySelectorAll('.carousel-slide');
-  const dots = document.querySelectorAll('#carouselIndicators .dot');
-  const container = document.getElementById('carouselContainer');
-  const totalSlides = slides.length;
-  let currentIndex = 0;
-  let autoPlayTimer = null;
-  let isDragging = false;
-  let startX = 0, moveX = 0, dragOffset = 0;
-  let slideWidth = 0;
-
-  // 重新计算每张幻灯片的宽度（每次窗口变化时更新）
-  function updateSlideWidth(){
-    slideWidth = container.offsetWidth;
+  try{
+    if(authMode === 'register'){
+      var r = await supabase.auth.signUp({
+        email: email, password: pass,
+        options: { data: { display_name: name } }
+      });
+      if(r.error) throw r.error;
+      if(r.data.user && !r.data.session){
+        msg.textContent = '注册成功！请前往邮箱点击确认链接后再登录';
+        msg.classList.add('ok');
+      } else {
+        currentUser = r.data.user;
+        msg.textContent = '注册成功，正在进入…'; msg.classList.add('ok');
+        setTimeout(function(){ enterDash(); toast('欢迎加入星火平台，' + name); }, 400);
+      }
+    } else {
+      var s = await supabase.auth.signInWithPassword({ email: email, password: pass });
+      if(s.error) throw s.error;
+      currentUser = s.data.user;
+      msg.textContent = '登录成功，正在进入…'; msg.classList.add('ok');
+      setTimeout(function(){ enterDash(); toast('欢迎回来，' + getDisplayName()); }, 400);
+    }
+  }catch(err){
+    msg.textContent = err.message || '操作失败，请重试';
+    msg.classList.add('err');
   }
+  btn.disabled = false; btn.textContent = authMode === 'login' ? '登录' : '注册';
+  return false;
+}
 
-  // 跳转到指定幻灯片（精确像素位移）
-  function goTo(index){
-    if(index < 0) index = totalSlides - 1;
-    if(index >= totalSlides) index = 0;
-    currentIndex = index;
-    updateSlideWidth();
-    track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-    dots.forEach((d,i)=>d.classList.toggle('active',i===currentIndex));
+function getDisplayName(){
+  return (currentUser && currentUser.user_metadata && currentUser.user_metadata.display_name) || (currentUser && currentUser.email) || '星火玩家';
+}
+
+function enterDash(){
+  document.getElementById('authSection').style.display = 'none';
+  document.getElementById('dashSection').style.display = 'block';
+  renderDashboard();
+}
+
+async function logout(){
+  await supabase.auth.signOut();
+  currentUser = null;
+  document.getElementById('dashSection').style.display = 'none';
+  document.getElementById('authSection').style.display = 'block';
+  document.getElementById('userPass').value = '';
+  document.getElementById('authMsg').textContent = '';
+  switchAuthTab('login');
+  toast('已退出登录');
+}
+
+// ===== 视图切换 =====
+function switchView(view){
+  document.querySelectorAll('.menu-item').forEach(function(m){
+    m.classList.toggle('active', m.getAttribute('data-view') === view);
+  });
+  document.querySelectorAll('.content-view').forEach(function(v){
+    v.style.display = v.id === 'view-' + view ? 'block' : 'none';
+  });
+}
+
+// ===== 渲染仪表盘 =====
+function renderDashboard(){
+  var u = currentUser;
+  if(!u) return;
+  var name = getDisplayName();
+  var initial = name.charAt(0).toUpperCase();
+  document.getElementById('miniAvatar').textContent = initial;
+  document.getElementById('miniName').textContent = name;
+  document.getElementById('miniEmail').textContent = u.email;
+  document.getElementById('editName').value = name;
+  document.getElementById('overviewGreet').textContent = name + '，这里是你近期的星火动态。';
+
+  var list = document.getElementById('recentList');
+  list.innerHTML = '<div class="recent-item"><div class="ri-name">欢迎加入星火平台</div><div class="ri-time">刚刚</div><div class="state-pill state-done">已登录</div></div>';
+}
+
+// ===== 设置交互 =====
+function toggleSwitch(el){
+  el.classList.toggle('on');
+  toast(el.classList.contains('on') ? '已开启' : '已关闭');
+}
+async function saveName(){
+  var v = document.getElementById('editName').value.trim();
+  if(!v){ toast('名称不能为空'); return; }
+  var r = await supabase.auth.updateUser({ data: { display_name: v } });
+  if(r.error){ toast('保存失败：' + r.error.message); return; }
+  currentUser.user_metadata = currentUser.user_metadata || {};
+  currentUser.user_metadata.display_name = v;
+  renderDashboard();
+  toast('名称已保存');
+}
+function unfollow(btn){
+  var item = btn.closest('.recent-item');
+  item.style.opacity = '0.4';
+  setTimeout(function(){ item.remove(); toast('已取消关注'); }, 300);
+}
+
+// ===== 恢复会话（刷新不掉线） =====
+async function restoreSession(){
+  var r = await supabase.auth.getSession();
+  if(!r.error && r.data.session){
+    currentUser = r.data.session.user;
+    enterDash();
   }
+}
 
-  function nextSlide(){ goTo(currentIndex + 1); }
-  function startAutoPlay(){ stopAutoPlay(); autoPlayTimer = setInterval(nextSlide, 4000); }
-  function stopAutoPlay(){ if(autoPlayTimer){ clearInterval(autoPlayTimer); autoPlayTimer = null; } }
-
-  // 初始化：强制第一帧精确到位
-  window.addEventListener('load', function(){
-    updateSlideWidth();
-    goTo(0);
-  });
-
-  // 窗口大小变化时重新计算（防抖）
-  let resizeTimer = null;
-  window.addEventListener('resize', function(){
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function(){
-      updateSlideWidth();
-      goTo(currentIndex); // 重新定位到当前页
-    }, 200);
-  });
-
-  // 鼠标悬浮暂停/恢复
-  container.addEventListener('mouseenter', stopAutoPlay);
-  container.addEventListener('mouseleave', startAutoPlay);
-
-  // 点击指示器
-  dots.forEach(dot => {
-    dot.addEventListener('click', function(){
-      stopAutoPlay();
-      goTo(parseInt(this.dataset.index));
-      startAutoPlay();
-    });
-  });
-
-  // 鼠标拖拽
-  track.addEventListener('mousedown', function(e){
-    isDragging = true; startX = e.clientX;
-    track.classList.add('dragging'); stopAutoPlay();
-    updateSlideWidth();
-  });
-  document.addEventListener('mousemove', function(e){
-    if(!isDragging) return;
-    moveX = e.clientX; dragOffset = moveX - startX;
-    track.style.transform = `translateX(${-currentIndex * slideWidth + dragOffset}px)`;
-  });
-  document.addEventListener('mouseup', function(){
-    if(!isDragging) return;
-    isDragging = false; track.classList.remove('dragging');
-    if(dragOffset > slideWidth * 0.25 && currentIndex > 0) goTo(currentIndex - 1);
-    else if(dragOffset < -slideWidth * 0.25 && currentIndex < totalSlides - 1) goTo(currentIndex + 1);
-    else goTo(currentIndex);
-    dragOffset = 0; startAutoPlay();
-  });
-
-  // 触摸拖拽
-  let touchStartX = 0, touchMoveX = 0, touchOffset = 0;
-  track.addEventListener('touchstart', function(e){
-    touchStartX = e.touches[0].clientX;
-    track.classList.add('dragging'); stopAutoPlay();
-    updateSlideWidth();
-  }, {passive:true});
-  track.addEventListener('touchmove', function(e){
-    touchMoveX = e.touches[0].clientX; touchOffset = touchMoveX - touchStartX;
-    track.style.transform = `translateX(${-currentIndex * slideWidth + touchOffset}px)`;
-  }, {passive:true});
-  track.addEventListener('touchend', function(){
-    track.classList.remove('dragging');
-    if(touchOffset > slideWidth * 0.25 && currentIndex > 0) goTo(currentIndex - 1);
-    else if(touchOffset < -slideWidth * 0.25 && currentIndex < totalSlides - 1) goTo(currentIndex + 1);
-    else goTo(currentIndex);
-    touchOffset = 0; startAutoPlay();
-  });
-
-  // 启动自动播放
-  startAutoPlay();
-})();
+// ===== 初始化 =====
+restoreSession();
 </script>
 
 </body>
