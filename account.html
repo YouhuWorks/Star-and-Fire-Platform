@@ -36,7 +36,7 @@
   .section-title{font-size:15px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;margin:30px 0 16px;display:flex;align-items:center;gap:10px}
   .section-title::after{content:'';flex:1;height:1px;background:var(--border)}
 
-  .auth-wrap{max-width:460px;margin:0 auto}
+  .auth-wrap{max-width:460px;margin:0 auto;position:relative}
   .panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px}
   .panel h3{font-size:20px;font-weight:660;text-align:center}
   .panel .sub{color:var(--text2);font-size:13px;text-align:center;margin:6px 0 22px}
@@ -46,26 +46,55 @@
   .tab.active:hover{background:var(--accent-light)}
   .field{margin-bottom:16px}
   .field label{display:block;font-size:13px;color:var(--text2);margin-bottom:7px}
-  .field input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:.2s}
-  .field input:focus{border-color:var(--accent)}
+  .field input,.field textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:.2s}
+  .field input:focus,.field textarea:focus{border-color:var(--accent)}
+  .field textarea{resize:vertical;min-height:70px}
   .form-msg{font-size:13px;min-height:20px;margin-bottom:8px;text-align:center}
   .form-msg.err{color:var(--accent-light)}
   .form-msg.ok{color:var(--success)}
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 22px;border-radius:999px;font-size:14px;font-weight:520;text-decoration:none;transition:.2s;cursor:pointer;border:none;font-family:inherit}
   .btn-primary{background:var(--accent);color:#fff;box-shadow:0 2px 12px rgba(220,38,38,.35)}
   .btn-primary:hover{background:var(--accent-light)}
+  .btn-primary:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
   .btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
   .btn-secondary:hover{background:#1e2630;border-color:var(--text2)}
   .btn-danger{background:rgba(220,38,38,.12);color:var(--accent-light);border:1px solid rgba(220,38,38,.4)}
   .btn-danger:hover{background:rgba(220,38,38,.22)}
   .btn-block{width:100%;padding:12px 0}
 
+  /* 注册协议 */
+  .agree-row{display:flex;align-items:flex-start;gap:10px;margin:6px 0 4px;font-size:13px;color:var(--text2);line-height:1.5}
+  .agree-row input[type=checkbox]{width:17px;height:17px;margin-top:2px;accent-color:var(--accent);flex-shrink:0;cursor:pointer}
+  .agree-row a{color:var(--accent-light);text-decoration:underline}
+  .agree-hint{font-size:12px;color:var(--text2);text-align:center;margin:10px 0 2px}
+  .agree-hint a{color:var(--accent-light);text-decoration:underline}
+  .reg-notice{background:rgba(220,38,38,.07);border:1px solid rgba(220,38,38,.3);border-radius:10px;padding:11px 13px;font-size:12.5px;color:var(--text2);line-height:1.6;margin-bottom:14px}
+  .reg-notice b{color:var(--accent-light);font-weight:600}
+
+  /* 客服按钮 */
+  .cs-btn{position:absolute;right:-8px;top:-8px;z-index:5;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;font-size:12.5px;font-weight:560;color:var(--text2);background:var(--surface2);border:1px solid var(--border);cursor:pointer;transition:.2s;text-decoration:none}
+  .cs-btn:hover{color:var(--accent-light);border-color:rgba(220,38,38,.4)}
+
+  /* 客服提示条 */
+  .cs-sticky{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(30px);z-index:2100;background:var(--surface);border:1px solid var(--accent);color:var(--text);padding:13px 22px;border-radius:12px;font-size:13.5px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.35s;display:flex;align-items:center;gap:12px;max-width:92vw}
+  .cs-sticky.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+  .cs-sticky a{color:var(--accent-light);font-weight:600;text-decoration:underline;white-space:nowrap}
+  .cs-sticky .cs-x{margin-left:6px;cursor:pointer;color:var(--text2);font-size:16px;line-height:1}
+
+  /* 头像选择器 */
+  .avatar-pick{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 4px}
+  .av-opt{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:21px;background:var(--surface2);border:2px solid var(--border);cursor:pointer;transition:.15s;flex-shrink:0}
+  .av-opt:hover{border-color:var(--text2);transform:scale(1.08)}
+  .av-opt.sel{border-color:var(--accent);box-shadow:0 0 0 3px rgba(220,38,38,.25)}
+
   .acct-layout{display:grid;grid-template-columns:280px 1fr;gap:20px;align-items:start}
   .side{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px}
   .profile-mini{display:flex;align-items:center;gap:14px;padding-bottom:18px;border-bottom:1px solid var(--border);margin-bottom:16px}
-  .avatar{width:54px;height:54px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:23px;font-weight:700;color:#fff}
+  .avatar{width:54px;height:54px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:23px;font-weight:700;color:#fff;overflow:hidden}
+  .avatar img{width:100%;height:100%;object-fit:cover}
+  .avatar.lg{width:86px;height:86px;font-size:38px;margin:0 auto 10px}
   .profile-mini .p-name{font-size:16px;font-weight:640}
-  .profile-mini .p-role{font-size:12px;color:var(--text2);margin-top:2px}
+  .profile-mini .p-role{font-size:12px;color:var(--text2);margin-top:2px;word-break:break-all}
   .menu{display:flex;flex-direction:column;gap:4px}
   .menu-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:10px;cursor:pointer;font-size:14px;font-weight:530;color:var(--text2);transition:.15s;border:1px solid transparent;background:transparent}
   .menu-item svg{flex-shrink:0}
@@ -78,20 +107,13 @@
   .content h3{font-size:18px;font-weight:640;margin-bottom:4px}
   .content .sub{color:var(--text2);font-size:13px;margin-bottom:20px}
 
-  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
-  .stat{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:18px;text-align:center}
-  .stat .n{font-size:26px;font-weight:680}
-  .stat .l{font-size:12px;color:var(--text2);margin-top:4px}
-  .recent-title{font-size:14px;font-weight:600;margin-bottom:12px}
-  .recent-list{display:flex;flex-direction:column;gap:10px}
-  .recent-item{display:flex;align-items:center;gap:12px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
-  .recent-item .ri-name{font-size:14px;font-weight:570;flex:1}
-  .recent-item .ri-time{font-size:12px;color:var(--text2)}
-  .state-pill{font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;flex-shrink:0}
-  .state-done{color:var(--success);background:rgba(34,197,94,.12)}
-  .state-wait{color:var(--text2);background:var(--surface)}
-  .state-track{color:var(--accent-light);background:rgba(220,38,38,.12)}
+  .profile-card{text-align:center;padding:10px 0 20px;border-bottom:1px solid var(--border);margin-bottom:22px}
+  .profile-card .pc-name{font-size:22px;font-weight:680;margin-top:12px}
+  .profile-card .pc-email{font-size:13px;color:var(--text2);margin-top:4px}
+  .profile-card .pc-sig{font-size:14px;color:var(--text);margin:16px auto 0;max-width:420px;line-height:1.6;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px 18px}
+  .profile-card .pc-sig.empty{color:var(--text2);font-style:italic}
 
+  .set-block-title{font-size:14px;font-weight:600;margin:22px 0 8px}
   .set-item{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--border)}
   .set-item:last-child{border-bottom:none}
   .set-item .si-label{font-size:14px;font-weight:560}
@@ -100,6 +122,17 @@
   .switch::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:var(--text2);transition:.2s}
   .switch.on{background:var(--accent);border-color:var(--accent)}
   .switch.on::after{left:22px;background:#fff}
+
+  /* 弹窗 */
+  .modal-mask{position:fixed;inset:0;z-index:3000;background:rgba(4,6,8,.72);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px}
+  .modal-mask.show{display:flex}
+  .modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;width:100%;max-width:560px;max-height:82vh;display:flex;flex-direction:column;box-shadow:var(--shadow)}
+  .modal-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+  .modal-head h3{font-size:17px;font-weight:650}
+  .modal-head .m-x{cursor:pointer;color:var(--text2);font-size:20px;line-height:1}
+  .modal-body{padding:20px 22px;overflow-y:auto;font-size:13.5px;color:var(--text2);line-height:1.7;flex:1}
+  .modal-body b{color:var(--text);font-weight:600}
+  .modal-foot{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end}
 
   footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--border);text-align:center;color:var(--text2);font-size:13px;display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
   footer a{color:var(--text2);text-decoration:none}
@@ -114,6 +147,32 @@
 <body>
 
 <div class="toast" id="toast"></div>
+<div class="cs-sticky" id="csSticky">
+  <span>登录遇到问题了么？</span>
+  <a href="#" id="csStickyLink">点击这里联系客服获取服务～</a>
+  <span class="cs-x" id="csClose">×</span>
+</div>
+
+<!-- 注册须知弹窗 -->
+<div class="modal-mask" id="noticeModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>用户注册须知</h3>
+      <span class="m-x" id="noticeClose">×</span>
+    </div>
+    <div class="modal-body" id="noticeBody">
+      <p>请您务必认真阅读本《用户注册须知》与《用户协议》。</p>
+      <p style="margin-top:10px">一、注册账号即表示您同意遵守平台相关规则，并对您的账号及密码安全负责；</p>
+      <p style="margin-top:6px">二、请勿使用他人身份信息注册，勿注册重复账号，不得利用平台从事违法违规行为；</p>
+      <p style="margin-top:6px">三、您上传、分享或发布的内容需符合国家法律法规及《星火平台用户协议》；</p>
+      <p style="margin-top:6px">四、星火平台保留对违规账号进行处理的权利，包括但不限于封禁、注销账号；</p>
+      <p style="margin-top:6px">五、其他未尽事宜以《星火平台用户协议》为准。请仔细阅读后确认注册。</p>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-primary" id="noticeConfirm">我已阅读并同意</button>
+    </div>
+  </div>
+</div>
 
 <nav class="header-nav">
   <a href="#" class="brand-logo" id="homeLogo">
@@ -129,13 +188,17 @@
 
   <div class="hero">
     <h2>账号中心</h2>
-    <p>管理你的星火账号：查看个人资料、追踪下载记录与关注的 MOD，配置账号与通知偏好。登录后解锁完整功能。</p>
+    <p>管理你的星火账号：编辑个人资料与个性签名、修改密码、管理通知偏好。登录后可解锁完整功能。</p>
   </div>
 
   <!-- ===== 未登录：登录 / 注册 ===== -->
   <section id="authSection">
     <div class="section-title">登录星火平台</div>
     <div class="auth-wrap">
+      <a href="#" class="cs-btn" id="csTopBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        联系客服
+      </a>
       <div class="panel">
         <h3 id="authTitle">登录星火平台</h3>
         <div class="sub" id="authSub">登录后可下载作品并查看下载记录</div>
@@ -156,6 +219,14 @@
             <label for="userPass">密码</label>
             <input id="userPass" type="password" placeholder="至少 6 位" autocomplete="current-password" />
           </div>
+          <div id="agreeArea" style="display:none">
+            <div class="reg-notice">请先阅读并同意下方协议，方可完成注册。</div>
+            <label class="agree-row">
+              <input type="checkbox" id="agreeCheck" onchange="toggleAgree()" />
+              <span>我已阅读并同意<b>《用户注册须知》</b>与<b>《星火平台用户协议》</b></span>
+            </label>
+            <div class="agree-hint">为保障您的权益请您认真阅读<a href="https://youhuworks.github.io/Star-and-Fire-Platform/UserAgreement.html" target="_blank" rel="noopener">《星火平台用户协议》</a></div>
+          </div>
           <div class="form-msg" id="authMsg"></div>
           <button type="submit" class="btn btn-primary btn-block" id="authSubmit">登录</button>
         </form>
@@ -175,21 +246,13 @@
           </div>
         </div>
         <div class="menu">
-          <div class="menu-item active" data-view="overview" onclick="switchView('overview')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-            概览
-          </div>
-          <div class="menu-item" data-view="downloads" onclick="switchView('downloads')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            我的下载
-          </div>
-          <div class="menu-item" data-view="following" onclick="switchView('following')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            我的关注
+          <div class="menu-item active" data-view="home" onclick="switchView('home')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            我的首页
           </div>
           <div class="menu-item" data-view="settings" onclick="switchView('settings')">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-            账号设置
+            账号管理
           </div>
         </div>
         <div class="logout">
@@ -198,45 +261,55 @@
       </aside>
 
       <div class="content">
-        <div class="content-view" id="view-overview">
-          <h3>欢迎回来</h3>
-          <div class="sub" id="overviewGreet">—</div>
-          <div class="stat-row">
-            <div class="stat"><div class="n" id="statDownloads">0</div><div class="l">已下载作品</div></div>
-            <div class="stat"><div class="n" id="statUpdates">0</div><div class="l">可用更新</div></div>
-            <div class="stat"><div class="n" id="statFollowing">0</div><div class="l">关注作品</div></div>
+        <!-- 我的首页 -->
+        <div class="content-view" id="view-home">
+          <h3>我的首页</h3>
+          <div class="sub">你的个人主页：展示头像、昵称与个性签名</div>
+          <div class="profile-card">
+            <div class="avatar lg" id="homeAvatar">游</div>
+            <div class="pc-name" id="homeName">—</div>
+            <div class="pc-email" id="homeEmail">—</div>
+            <div class="pc-sig" id="homeSig">这个人很懒，还没有填写个性签名。</div>
           </div>
-          <div class="recent-title">最近动态</div>
-          <div class="recent-list" id="recentList"></div>
-        </div>
-
-        <div class="content-view" id="view-downloads" style="display:none">
-          <h3>我的下载</h3>
-          <div class="sub">你已下载或关注的 MOD 作品</div>
-          <div class="recent-list" id="dlList">
-            <div class="recent-item"><div class="ri-name">新轴心 MOD</div><div class="ri-time">V1.1</div><div class="state-pill state-wait">未下载</div></div>
-            <div class="recent-item"><div class="ri-name">革命往事</div><div class="ri-time">开发中</div><div class="state-pill state-track">已关注</div></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-secondary" onclick="switchView('settings')">编辑资料</button>
+            <button class="btn btn-secondary" onclick="toast('更多功能开发中')">浏览作品</button>
           </div>
         </div>
 
-        <div class="content-view" id="view-following" style="display:none">
-          <h3>我的关注</h3>
-          <div class="sub">关注的作品将收到更新提醒</div>
-          <div class="recent-list" id="followList">
-            <div class="recent-item"><div class="ri-name">革命往事</div><div class="ri-time">开发中 · 制作中</div><button class="btn btn-secondary" style="padding:6px 14px;font-size:13px" onclick="unfollow(this)">取消关注</button></div>
-            <div class="recent-item"><div class="ri-name">新轴心 MOD</div><div class="ri-time">V1.1 · 已发布</div><button class="btn btn-secondary" style="padding:6px 14px;font-size:13px" onclick="unfollow(this)">取消关注</button></div>
-          </div>
-        </div>
-
+        <!-- 账号管理 -->
         <div class="content-view" id="view-settings" style="display:none">
-          <h3>账号设置</h3>
-          <div class="sub">管理个人资料与偏好</div>
-          <div style="font-size:14px;font-weight:600;margin:18px 0 6px">个人资料</div>
-          <div class="field"><label for="editName">显示名称</label><input id="editName" type="text" placeholder="你的显示名称" /></div>
-          <div style="display:flex;gap:10px;margin:4px 0 10px"><button class="btn btn-primary" onclick="saveName()">保存名称</button></div>
-          <div style="font-size:14px;font-weight:600;margin:22px 0 6px">通知偏好</div>
-          <div class="set-item"><div><div class="si-label">更新提醒</div><div class="si-desc">关注的 MOD 发布新版本时通知我</div></div><div class="switch on" data-sw="update" onclick="toggleSwitch(this)"></div></div>
-          <div class="set-item"><div><div class="si-label">下载完成提示</div><div class="si-desc">作品下载完成后弹出提示</div></div><div class="switch on" data-sw="dl" onclick="toggleSwitch(this)"></div></div>
+          <h3>账号管理</h3>
+          <div class="sub">修改资料、密码与通知偏好</div>
+
+          <div class="set-block-title">修改昵称</div>
+          <div class="field"><input id="editName" type="text" placeholder="你的显示名称" /></div>
+          <div style="margin-bottom:8px"><button class="btn btn-primary" onclick="saveName()">保存昵称</button></div>
+
+          <div class="set-block-title">修改头像</div>
+          <div class="avatar-pick" id="avatarPick"></div>
+          <div style="margin:8px 0 8px"><button class="btn btn-primary" onclick="saveAvatar()">保存头像</button></div>
+
+          <div class="set-block-title">个性签名</div>
+          <div class="field"><textarea id="editSig" placeholder="写点什么，展示给其他玩家看"></textarea></div>
+          <div style="margin-bottom:8px"><button class="btn btn-primary" onclick="saveSig()">保存签名</button></div>
+
+          <div class="set-block-title">修改密码</div>
+          <div class="field"><input id="oldPass" type="password" placeholder="当前密码" autocomplete="current-password" /></div>
+          <div class="field"><input id="newPass" type="password" placeholder="新密码（至少 6 位）" autocomplete="new-password" /></div>
+          <div style="margin-bottom:8px"><button class="btn btn-primary" onclick="savePass()">修改密码</button></div>
+
+          <div class="set-block-title">通知偏好</div>
+          <div class="set-item">
+            <div><div class="si-label">允许向我推送公告信息</div><div class="si-desc">开启后平台可向你推送公告通知</div></div>
+            <div class="switch" data-sw="push" onclick="togglePush(this)"></div>
+          </div>
+
+          <div class="set-block-title">账号注销</div>
+          <div class="set-item">
+            <div><div class="si-label">注销星火账号</div><div class="si-desc">注销后账号数据将被删除，且不可恢复</div></div>
+            <button class="btn btn-danger" onclick="deleteAccount()">注销账号</button>
+          </div>
         </div>
       </div>
     </div>
@@ -256,11 +329,25 @@
 // ===== Supabase 配置 =====
 var SUPABASE_URL = 'https://bvffxdhqkxpiewbourqv.supabase.co';
 var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2ZmZ4ZGhxa3hwaWV3Ym91cnF2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3NzU1MTksImV4cCI6MjEwNjM1MTUxOX0.n_-CQZyuhsxC8sgwtJOrZ06BZ47TrnqSuIIoCplsqQY';
-// UMD 构建把客户端工厂挂到 window.supabase（兼容旧命名 window.supabaseJs）
 var SB = window.supabase || window.supabaseJs;
 var supabase = SB.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 var currentUser = null;
+
+// 可选头像（emoji 集）
+var AVATAR_OPTIONS = ['🔥','⚡','🌌','🚩','⚙️','🗡️','📜','🌟','🐉','🦅','⛰️','🎖️'];
+
+// ===== 客服 =====
+var CUSTOMER_CONTACT = 'mailto:3885026059@qq.com?subject=星火平台-账号问题'; // 可改为你的客服邮箱/链接
+var csTimer = null;
+
+function showCsSticky(){
+  var el = document.getElementById('csSticky');
+  el.classList.add('show');
+  clearTimeout(csTimer);
+  csTimer = setTimeout(function(){ el.classList.remove('show'); }, 20000);
+}
+function csContact(e){ if(e) e.preventDefault(); window.location.href = CUSTOMER_CONTACT; }
 
 // ===== 提示 =====
 var toastTimer = null;
@@ -277,6 +364,20 @@ document.getElementById('navAccount').addEventListener('click', function(e){ e.p
 document.getElementById('footHome').addEventListener('click', function(e){ e.preventDefault(); toast('返回星火平台首页'); });
 document.getElementById('footAccount').addEventListener('click', function(e){ e.preventDefault(); toast('你已在账号中心'); });
 
+document.getElementById('csTopBtn').addEventListener('click', function(e){ csContact(e); });
+document.getElementById('csStickyLink').addEventListener('click', function(e){ csContact(e); });
+document.getElementById('csClose').addEventListener('click', function(){ document.getElementById('csSticky').classList.remove('show'); });
+
+// ===== 注册须知弹窗 =====
+var noticeSeen = false;
+function openNotice(){ document.getElementById('noticeModal').classList.add('show'); }
+function closeNotice(confirmed){
+  document.getElementById('noticeModal').classList.remove('show');
+  if(confirmed){ noticeSeen = true; toggleAgree(); }
+}
+document.getElementById('noticeConfirm').addEventListener('click', function(){ closeNotice(true); });
+document.getElementById('noticeClose').addEventListener('click', function(){ closeNotice(false); });
+
 // ===== 登录 / 注册切换 =====
 var authMode = 'login';
 function switchAuthTab(mode){
@@ -285,10 +386,23 @@ function switchAuthTab(mode){
     t.classList.toggle('active', t.getAttribute('data-tab') === mode);
   });
   document.getElementById('nameField').style.display = mode === 'register' ? 'block' : 'none';
+  document.getElementById('agreeArea').style.display = mode === 'register' ? 'block' : 'none';
   document.getElementById('authTitle').textContent = mode === 'login' ? '登录星火平台' : '注册星火平台';
   document.getElementById('authSub').textContent = mode === 'login' ? '登录后可下载作品并查看下载记录' : '创建账号，开启你的星火之旅';
   document.getElementById('authSubmit').textContent = mode === 'login' ? '登录' : '注册';
   document.getElementById('authMsg').textContent = '';
+  if(mode === 'register'){
+    if(!noticeSeen) openNotice();
+    toggleAgree();
+  }
+}
+
+function toggleAgree(){
+  var ok = document.getElementById('agreeCheck').checked;
+  var btn = document.getElementById('authSubmit');
+  btn.disabled = !ok;
+  if(!ok) btn.style.opacity = '0.5';
+  else btn.style.opacity = '';
 }
 
 // ===== 提交登录 / 注册（Supabase 真登录） =====
@@ -302,6 +416,8 @@ async function submitAuth(e){
   if(!email || !email.includes('@')){ msg.textContent = '请输入有效的邮箱'; msg.classList.add('err'); return false; }
   if(!pass || pass.length < 6){ msg.textContent = '密码至少 6 位'; msg.classList.add('err'); return false; }
   if(authMode === 'register' && !name){ msg.textContent = '请设置显示名称'; msg.classList.add('err'); return false; }
+  if(authMode === 'register' && !noticeSeen){ msg.textContent = '请先阅读并确认《用户注册须知》'; msg.classList.add('err'); openNotice(); return false; }
+  if(authMode === 'register' && !document.getElementById('agreeCheck').checked){ msg.textContent = '请勾选同意协议后再注册'; msg.classList.add('err'); return false; }
 
   msg.textContent = '请稍候…'; msg.className = 'form-msg';
   var btn = document.getElementById('authSubmit');
@@ -334,11 +450,31 @@ async function submitAuth(e){
     msg.classList.add('err');
   }
   btn.disabled = false; btn.textContent = authMode === 'login' ? '登录' : '注册';
+  toggleAgree();
   return false;
 }
 
 function getDisplayName(){
   return (currentUser && currentUser.user_metadata && currentUser.user_metadata.display_name) || (currentUser && currentUser.email) || '星火玩家';
+}
+function getAvatar(){
+  return (currentUser && currentUser.user_metadata && currentUser.user_metadata.avatar) || getDisplayName().charAt(0).toUpperCase();
+}
+function getSig(){
+  return (currentUser && currentUser.user_metadata && currentUser.user_metadata.signature) || '';
+}
+function getPushPref(){
+  return !!(currentUser && currentUser.user_metadata && currentUser.user_metadata.push_enabled);
+}
+
+function renderAvatar(el){
+  var av = getAvatar();
+  var isEmoji = !/^[A-Za-z\u4e00-\u9fa5]$/.test(av);
+  if(/^https?:/i.test(av)){
+    el.innerHTML = '<img src="' + av + '" alt="头像" />';
+  } else {
+    el.textContent = isEmoji ? av : av;
+  }
 }
 
 function enterDash(){
@@ -354,6 +490,8 @@ async function logout(){
   document.getElementById('authSection').style.display = 'block';
   document.getElementById('userPass').value = '';
   document.getElementById('authMsg').textContent = '';
+  document.getElementById('agreeCheck').checked = false;
+  noticeSeen = false;
   switchAuthTab('login');
   toast('已退出登录');
 }
@@ -373,36 +511,116 @@ function renderDashboard(){
   var u = currentUser;
   if(!u) return;
   var name = getDisplayName();
-  var initial = name.charAt(0).toUpperCase();
-  document.getElementById('miniAvatar').textContent = initial;
+  renderAvatar(document.getElementById('miniAvatar'));
   document.getElementById('miniName').textContent = name;
   document.getElementById('miniEmail').textContent = u.email;
+  renderAvatar(document.getElementById('homeAvatar'));
+  document.getElementById('homeName').textContent = name;
+  document.getElementById('homeEmail').textContent = u.email;
+  var sig = getSig();
+  var sigEl = document.getElementById('homeSig');
+  if(sig){ sigEl.textContent = sig; sigEl.classList.remove('empty'); }
+  else { sigEl.textContent = '这个人很懒，还没有填写个性签名。'; sigEl.classList.add('empty'); }
   document.getElementById('editName').value = name;
-  document.getElementById('overviewGreet').textContent = name + '，这里是你近期的星火动态。';
+  document.getElementById('editSig').value = sig;
+  // 头像选择器
+  var cur = getAvatar();
+  var pick = document.getElementById('avatarPick');
+  var html = '';
+  AVATAR_OPTIONS.forEach(function(a){
+    html += '<div class="av-opt' + (cur === a ? ' sel' : '') + '" data-av="' + a + '" onclick="pickAvatar(this)">' + a + '</div>';
+  });
+  pick.innerHTML = html;
+  // 推送开关
+  var sw = document.querySelector('[data-sw="push"]');
+  sw.classList.toggle('on', getPushPref());
+}
 
-  var list = document.getElementById('recentList');
-  list.innerHTML = '<div class="recent-item"><div class="ri-name">欢迎加入星火平台</div><div class="ri-time">刚刚</div><div class="state-pill state-done">已登录</div></div>';
+// ===== 头像选择 =====
+var selectedAvatar = null;
+function pickAvatar(el){
+  selectedAvatar = el.getAttribute('data-av');
+  document.querySelectorAll('#avatarPick .av-opt').forEach(function(o){ o.classList.remove('sel'); });
+  el.classList.add('sel');
+  toast('已选择头像，点击「保存头像」生效');
 }
 
 // ===== 设置交互 =====
-function toggleSwitch(el){
-  el.classList.toggle('on');
-  toast(el.classList.contains('on') ? '已开启' : '已关闭');
-}
 async function saveName(){
   var v = document.getElementById('editName').value.trim();
-  if(!v){ toast('名称不能为空'); return; }
-  var r = await supabase.auth.updateUser({ data: { display_name: v } });
+  if(!v){ toast('昵称不能为空'); return; }
+  var r = await supabase.auth.updateUser({ data: Object.assign({}, currentUser.user_metadata, { display_name: v }) });
   if(r.error){ toast('保存失败：' + r.error.message); return; }
-  currentUser.user_metadata = currentUser.user_metadata || {};
-  currentUser.user_metadata.display_name = v;
-  renderDashboard();
-  toast('名称已保存');
+  await refreshUser();
+  toast('昵称已保存，已在所有设备同步');
 }
-function unfollow(btn){
-  var item = btn.closest('.recent-item');
-  item.style.opacity = '0.4';
-  setTimeout(function(){ item.remove(); toast('已取消关注'); }, 300);
+async function saveAvatar(){
+  var av = selectedAvatar || getAvatar();
+  var r = await supabase.auth.updateUser({ data: Object.assign({}, currentUser.user_metadata, { avatar: av }) });
+  if(r.error){ toast('保存失败：' + r.error.message); return; }
+  await refreshUser();
+  toast('头像已保存，已在所有设备同步');
+}
+async function saveSig(){
+  var v = document.getElementById('editSig').value.trim();
+  var r = await supabase.auth.updateUser({ data: Object.assign({}, currentUser.user_metadata, { signature: v }) });
+  if(r.error){ toast('保存失败：' + r.error.message); return; }
+  await refreshUser();
+  toast('签名已保存，已在所有设备同步');
+}
+async function savePass(){
+  var oldPass = document.getElementById('oldPass').value;
+  var newPass = document.getElementById('newPass').value;
+  if(!oldPass){ toast('请输入当前密码'); return; }
+  if(!newPass || newPass.length < 6){ toast('新密码至少 6 位'); return; }
+  var r = await supabase.auth.updateUser({ password: newPass });
+  if(r.error){ toast('修改失败：' + r.error.message); return; }
+  document.getElementById('oldPass').value = '';
+  document.getElementById('newPass').value = '';
+  toast('密码已修改，下次登录请使用新密码');
+}
+async function togglePush(el){
+  var on = !el.classList.contains('on');
+  if(on && 'Notification' in window && Notification.permission === 'default'){
+    try{ await Notification.requestPermission(); }catch(e){}
+  }
+  var r = await supabase.auth.updateUser({ data: Object.assign({}, currentUser.user_metadata, { push_enabled: on }) });
+  if(r.error){ toast('保存失败：' + r.error.message); return; }
+  el.classList.toggle('on', on);
+  await refreshUser();
+  toast(on ? '已开启公告推送' : '已关闭公告推送');
+}
+async function deleteAccount(){
+  var u = currentUser;
+  if(!u) return;
+  var ok = confirm('确定要注销星火账号吗？此操作不可恢复。\n\n注销后你的昵称、头像、签名等资料将被永久删除。');
+  if(!ok) return;
+  try{
+    var r = await supabase.rpc('delete_account');
+    if(r.error){
+      toast('注销失败（可能尚未配置删除函数）');
+      console.error('delete_account RPC error:', r.error);
+      return;
+    }
+  }catch(e){
+    toast('注销失败（可能尚未配置删除函数）');
+    console.error(e);
+    return;
+  }
+  await supabase.auth.signOut();
+  currentUser = null;
+  document.getElementById('dashSection').style.display = 'none';
+  document.getElementById('authSection').style.display = 'block';
+  document.getElementById('authMsg').textContent = '';
+  switchAuthTab('login');
+  toast('账号已注销');
+}
+
+// ===== 从服务端拉取最新用户（跨设备同步核心） =====
+async function refreshUser(){
+  var r = await supabase.auth.getUser();
+  if(!r.error && r.data.user){ currentUser = r.data.user; }
+  renderDashboard();
 }
 
 // ===== 恢复会话（刷新不掉线） =====
@@ -410,7 +628,11 @@ async function restoreSession(){
   var r = await supabase.auth.getSession();
   if(!r.error && r.data.session){
     currentUser = r.data.session.user;
+    await refreshUser();
     enterDash();
+  } else {
+    // 未登录：启动 30s 客服提示
+    setTimeout(showCsSticky, 30000);
   }
 }
 
