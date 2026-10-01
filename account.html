@@ -62,6 +62,17 @@
   .btn-danger:hover{background:rgba(220,38,38,.22)}
   .btn-block{width:100%;padding:12px 0}
 
+  /* 用户名可用性检测 */
+  .name-check{font-size:12.5px;min-height:18px;margin:-8px 0 12px;display:flex;align-items:center;gap:6px}
+  .name-check.ok{color:var(--success)}
+  .name-check.err{color:var(--accent-light)}
+  .name-check.warn{color:#eab308}
+  .name-check::before{content:'';width:8px;height:8px;border-radius:50%;background:currentColor;flex-shrink:0}
+  .special-field{display:none;margin:-4px 0 16px;padding:11px 13px;background:rgba(220,38,38,.07);border:1px solid rgba(220,38,38,.3);border-radius:10px}
+  .special-field.show{display:block}
+  .special-field label{display:block;font-size:13px;color:var(--accent-light);margin-bottom:7px;font-weight:560}
+  .special-tip{font-size:12px;color:var(--text2);margin-top:6px;line-height:1.5}
+
   /* 注册协议 */
   .agree-row{display:flex;align-items:flex-start;gap:10px;margin:6px 0 4px;font-size:13px;color:var(--text2);line-height:1.5}
   .agree-row input[type=checkbox]{width:17px;height:17px;margin-top:2px;accent-color:var(--accent);flex-shrink:0;cursor:pointer}
@@ -209,7 +220,13 @@
         <form onsubmit="return submitAuth(event)">
           <div class="field" id="nameField" style="display:none">
             <label for="userName">显示名称</label>
-            <input id="userName" type="text" placeholder="你的显示名称" autocomplete="nickname" />
+            <input id="userName" type="text" placeholder="你的显示名称" autocomplete="nickname" oninput="debounceNameCheck()" />
+            <div class="name-check" id="regNameCheck"></div>
+            <div class="special-field" id="regSpecialField">
+              <label>特别用户名码</label>
+              <input id="regSpecialCode" type="text" placeholder="请输入该名称对应的特别用户名码" autocomplete="off" oninput="debounceNameCheck()" />
+              <div class="special-tip">「该名称属于特别名称」——需输入与名称对应的特别用户名码，验证通过后方可注册。</div>
+            </div>
           </div>
           <div class="field">
             <label for="userEmail">邮箱</label>
@@ -283,7 +300,14 @@
           <div class="sub">修改资料、密码与通知偏好</div>
 
           <div class="set-block-title">修改昵称</div>
-          <div class="field"><input id="editName" type="text" placeholder="你的显示名称" /></div>
+          <div class="field"><input id="editName" type="text" placeholder="你的显示名称" oninput="debounceEditNameCheck()" />
+            <div class="name-check" id="editNameCheck"></div>
+            <div class="special-field" id="editSpecialField">
+              <label>特别用户名码</label>
+              <input id="editSpecialCode" type="text" placeholder="请输入该名称对应的特别用户名码" autocomplete="off" oninput="debounceEditNameCheck()" />
+              <div class="special-tip">「该名称属于特别名称」——需输入与名称对应的特别用户名码，验证通过后方可保存。</div>
+            </div>
+          </div>
           <div style="margin-bottom:8px"><button class="btn btn-primary" onclick="saveName()">保存昵称</button></div>
 
           <div class="set-block-title">修改头像</div>
@@ -336,6 +360,165 @@ var currentUser = null;
 
 // 可选头像（emoji 集）
 var AVATAR_OPTIONS = ['🔥','⚡','🌌','🚩','⚙️','🗡️','📜','🌟','🐉','🦅','⛰️','🎖️'];
+
+// ===== 特别名称与其对应的特别用户名码 =====
+var SPECIAL_NAMES = {
+  '游虎':'SAFP-SFPUS2026100100103794youhu0001-xinghuopingtai0zhanghao01234567890',
+  '洗头佬':'SAFP-SFPUS2026100100461329xitoulao0002-xinghuopingtai0zhanghao032376890',
+  '灰风':'SAFP-SFPUS2026100100439183huifeng0003-xinghuopingtai0zhanghao1975321657',
+  '太阳前':'SAFP-SFPUS2026100100139452taiyangqian0004xinghuopingtai0zhanghao1367524359',
+  '虎鲸':'SAFP-SFPUS2026100100197853hujing0005xinghuopingtai0zhanghao4648279546',
+  '官方':'SAFP-SFPUS2026100100139452guangfang0006xinghuopingtai0zhanghao4957642495',
+  '管理员':'SAFP-SFPUS2026100100464950guanyuan0007xinghuopingtai0zhanghao4675249756',
+  '客服':'SAFP-SFPUS2026100100464990kefu0008xinghuopingtai0zhanghao4679579756',
+  '机器人':'SAFP-SFPUS2026100100439752jiqiren0009xinghuopingtai0zhanghao4675346759'
+};
+function findSpecialName(name){
+  for(var k in SPECIAL_NAMES){ if(name.indexOf(k) !== -1) return k; }
+  return null;
+}
+
+// ===== 用户名可用性检测（跨设备/跨浏览器唯一） =====
+// 依赖 Supabase 建好 username_exists 函数：检测该用户名是否已被占用
+async function checkNameAvailable(name, excludeId){
+  try{
+    var r = await supabase.rpc('username_exists', { p_name: name, p_exclude_id: excludeId || null });
+    if(r.error) throw r.error;
+    return { taken: !!r.data };
+  }catch(e){
+    // 函数未建好时：默认放行，仅在提示上标注
+    return { taken: false, unavailable: true };
+  }
+}
+
+// 综合检测：先查特别名，再查占用；返回 {ok, taken, special}
+function checkNameComplex(name, excludeId){
+  var special = findSpecialName(name);
+  return { special: special };
+}
+function renderNameCheck(el, special, taken, unavailable){
+  el.className = 'name-check';
+  if(special){
+    el.classList.add('warn');
+    el.textContent = '该名称属于特别名称，请填写对应的特别用户名码';
+    return;
+  }
+  if(unavailable){
+    el.classList.add('warn');
+    el.textContent = '可用性检测暂不可用（请先在 Supabase 建 username_exists 函数）';
+    return;
+  }
+  if(taken){
+    el.classList.add('err');
+    el.textContent = '该用户名已被占用，请更换';
+    return;
+  }
+  el.classList.add('ok');
+  el.textContent = '该用户名可用';
+}
+
+// 校验特别名是否输对了码
+function specialCodeOk(special, code){
+  return SPECIAL_NAMES[special] === code;
+}
+
+// ===== 注册名实时检测（防抖） =====
+var regCheckTimer = null;
+function debounceNameCheck(){
+  clearTimeout(regCheckTimer);
+  regCheckTimer = setTimeout(doRegNameCheck, 450);
+}
+async function doRegNameCheck(){
+  var name = document.getElementById('userName').value.trim();
+  var el = document.getElementById('regNameCheck');
+  var specialField = document.getElementById('regSpecialField');
+  var special = findSpecialName(name);
+  if(!name){
+    el.className='name-check'; el.textContent='';
+    specialField.classList.remove('show');
+    return;
+  }
+  // 特别名：显示码输入框
+  if(special){
+    specialField.classList.add('show');
+    var code = document.getElementById('regSpecialCode').value.trim();
+    if(code && !specialCodeOk(special, code)){
+      el.className='name-check err';
+      el.textContent = '特别用户名码不正确';
+      return;
+    }
+    if(code && specialCodeOk(special, code)){
+      el.className='name-check ok';
+      el.textContent = '特别用户名码正确，用户名可用';
+      return;
+    }
+    el.className='name-check warn';
+    el.textContent = '该名称属于特别名称，请填写对应的特别用户名码';
+    return;
+  } else {
+    specialField.classList.remove('show');
+  }
+  // 普通名：查占用
+  var r = await checkNameAvailable(name, null);
+  renderNameCheck(el, null, r.taken, r.unavailable);
+}
+
+// ===== 改名实时检测（防抖） =====
+var editCheckTimer = null;
+function debounceEditNameCheck(){
+  clearTimeout(editCheckTimer);
+  editCheckTimer = setTimeout(doEditNameCheck, 450);
+}
+async function doEditNameCheck(){
+  var name = document.getElementById('editName').value.trim();
+  var el = document.getElementById('editNameCheck');
+  var specialField = document.getElementById('editSpecialField');
+  var special = findSpecialName(name);
+  if(!name){
+    el.className='name-check'; el.textContent='';
+    specialField.classList.remove('show');
+    return;
+  }
+  if(special){
+    specialField.classList.add('show');
+    var code = document.getElementById('editSpecialCode').value.trim();
+    if(code && !specialCodeOk(special, code)){
+      el.className='name-check err'; el.textContent='特别用户名码不正确'; return;
+    }
+    if(code && specialCodeOk(special, code)){
+      el.className='name-check ok'; el.textContent='特别用户名码正确，用户名可用'; return;
+    }
+    el.className='name-check warn'; el.textContent='该名称属于特别名称，请填写对应的特别用户名码'; return;
+  } else {
+    specialField.classList.remove('show');
+  }
+  var r = await checkNameAvailable(name, currentUser ? currentUser.id : null);
+  renderNameCheck(el, null, r.taken, r.unavailable);
+}
+
+// ===== 提交前的最终校验（注册 / 改名） =====
+async function finalNameValidate(name, excludeId, isRegister){
+  // 特别名
+  var special = findSpecialName(name);
+  var specialFieldId = isRegister ? 'regSpecialField' : 'editSpecialField';
+  var specialCodeId = isRegister ? 'regSpecialCode' : 'editSpecialCode';
+  var checkId = isRegister ? 'regNameCheck' : 'editNameCheck';
+  var el = document.getElementById(checkId);
+  var field = document.getElementById(specialFieldId);
+  if(special){
+    field.classList.add('show');
+    var code = document.getElementById(specialCodeId).value.trim();
+    if(!code){ el.className='name-check err'; el.textContent='请填写该特别名称对应的特别用户名码'; return false; }
+    if(!specialCodeOk(special, code)){ el.className='name-check err'; el.textContent='特别用户名码不正确'; return false; }
+  } else {
+    field.classList.remove('show');
+  }
+  // 占用
+  var r = await checkNameAvailable(name, excludeId);
+  if(r.taken){ renderNameCheck(el, null, true, false); return false; }
+  if(!special){ renderNameCheck(el, null, false, r.unavailable); }
+  return true;
+}
 
 // ===== 客服 =====
 var CUSTOMER_CONTACT = 'mailto:3885026059@qq.com?subject=星火平台-账号问题'; // 可改为你的客服邮箱/链接
@@ -418,6 +601,7 @@ async function submitAuth(e){
   if(authMode === 'register' && !name){ msg.textContent = '请设置显示名称'; msg.classList.add('err'); return false; }
   if(authMode === 'register' && !noticeSeen){ msg.textContent = '请先阅读并确认《用户注册须知》'; msg.classList.add('err'); openNotice(); return false; }
   if(authMode === 'register' && !document.getElementById('agreeCheck').checked){ msg.textContent = '请勾选同意协议后再注册'; msg.classList.add('err'); return false; }
+  if(authMode === 'register' && !(await finalNameValidate(name, null, true))){ msg.textContent = '用户名校验未通过，请检查'; msg.classList.add('err'); return false; }
 
   msg.textContent = '请稍候…'; msg.className = 'form-msg';
   var btn = document.getElementById('authSubmit');
@@ -549,6 +733,9 @@ function pickAvatar(el){
 async function saveName(){
   var v = document.getElementById('editName').value.trim();
   if(!v){ toast('昵称不能为空'); return; }
+  // 特别名 / 占用校验（排除自己）
+  var pass = await finalNameValidate(v, currentUser ? currentUser.id : null, false);
+  if(!pass){ toast('昵称校验未通过，请检查'); return; }
   var r = await supabase.auth.updateUser({ data: Object.assign({}, currentUser.user_metadata, { display_name: v }) });
   if(r.error){ toast('保存失败：' + r.error.message); return; }
   await refreshUser();
